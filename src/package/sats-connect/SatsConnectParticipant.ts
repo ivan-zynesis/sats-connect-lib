@@ -13,6 +13,10 @@ export abstract class SatsConnectParticipant {
 
   abstract handleRequest(method: string, params: any[]): Promise<any>;
 
+  async sendRequest(method: string, params: any[]): Promise<any> {
+    return this.satsConnect.call(method, params);
+  }
+
   private async listen(event: SatsConnectCallEvent): Promise<void> {
     try {
       const data = await this.handleRequest(event.detail.method, event.detail.params);

@@ -1,12 +1,10 @@
 export interface Psbt {
+  payload: string;
   signerAddresses: string[];
   signatures: string[];
   signed: boolean;
-  finalize(): string; // assumed serialized and broadcast ready
 }
 
 export interface Wallet {
-  connect(address: string)
-  sign(psbt: Psbt): Psbt;
-
+  sign(psbt: Psbt): Promise<Psbt>;
 }
