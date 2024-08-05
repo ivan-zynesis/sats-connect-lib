@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Window, Event } from "../../mock/Window";
+import { PubSub, Event } from "../../mock/PubSub";
 
 export interface SatsConnectCallEvent extends Event {
   name: 'sats-connect-rpc-call';
@@ -32,7 +32,7 @@ export class SatsConnect {
 
   constructor(
     // we can consider for other comms later, eg over a remote server
-    private readonly window: Window,
+    private readonly window: PubSub,
   ) {
     this.asyncReturns = {};
     this.participants = {};

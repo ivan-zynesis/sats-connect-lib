@@ -10,7 +10,7 @@ export interface Event {
 
 export type EventListener = (event: Event) => Promise<void>;
 
-export interface Window {
+export interface PubSub {
   addEventListener(eventName: EventName, listener: EventListener): string;
   removeListener(eventName: string, id: string): void;
   dispatchEvent(eventName: EventName, detail: Record<string, any>): Promise<boolean>;
@@ -20,7 +20,7 @@ export interface Window {
  * Instead of running apps in browser, creating a mock "event pub sub" to run everything in node runtime
  * to focus on main functionality building now.
  */
-export class MockWindow implements Window {
+export class MockPubSub implements PubSub {
   constructor(
     private readonly listeners: Record<string, Record<string, EventListener>> = {},
   ) {}

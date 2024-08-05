@@ -1,4 +1,4 @@
-import { Window } from "../mock/Window";
+import { PubSub } from "../mock/PubSub";
 import { SatsConnectWallet } from "../package/wallet/SatsConnectWallet";
 import { SatsConnect } from "../package/sats-connect/SatsConnect";
 import { Psbt, Wallet } from "../package/wallet/Abstract";
@@ -19,7 +19,7 @@ class SomeonesWalletImplementation extends SatsConnectWallet {
   }
 }
 
-export function InitMockBitcoinWallet(window: Window) {
+export function InitMockBitcoinWallet(window: PubSub) {
   // mimic random user action on UI
   const callback = () => {
     const name = Math.random() < 0.5 ? "mainnet" : "testnet";

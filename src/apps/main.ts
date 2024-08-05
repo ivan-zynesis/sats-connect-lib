@@ -1,8 +1,8 @@
 import { InitMockBitcoinWallet } from "./wallet";
-import { MockWindow } from "../mock/Window";
+import { MockPubSub } from "../mock/PubSub";
 import { InitMockDapp } from "./dapp";
 
-const window = new MockWindow();
+const window = new MockPubSub();
 
 InitMockBitcoinWallet(window);
 InitMockDapp(window);

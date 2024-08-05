@@ -1,8 +1,8 @@
 import { SatsConnect } from "./SatsConnect";
-import { MockWindow } from "../../mock/Window";
+import { MockPubSub } from "../../mock/PubSub";
 import { SatsConnectParticipant } from "./SatsConnectParticipant";
 
-const window = new MockWindow();
+const window = new MockPubSub();
 
 class MockParticipant extends SatsConnectParticipant {
   async handleRequest(method: string, params: any[]): Promise<any> {

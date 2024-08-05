@@ -1,9 +1,9 @@
-import { Event, Window } from "../mock/Window";
+import { Event, PubSub } from "../mock/PubSub";
 import { SatsConnectClient } from "../package/wallet/SatsConnectClient";
 import { SatsConnect } from "../package/sats-connect/SatsConnect";
 import { SatsConnectParticipant } from "../package/sats-connect/SatsConnectParticipant";
 
-export function InitMockDapp(window: Window) {
+export function InitMockDapp(window: PubSub) {
   const satsConnect = new SatsConnect(window);
 
   const callback = async () => {
