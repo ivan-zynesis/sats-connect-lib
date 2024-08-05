@@ -67,9 +67,9 @@ export class SatsConnect {
 
       setTimeout(delayed, 100);
       setTimeout(() => {
-        reject();
+        reject(new Error('Timeout'));
         delete this.asyncReturns[callId];
-      }, 100_000);
+      }, 3_000);
     }));
 
     // dispatch "rpc call"

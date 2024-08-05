@@ -1,7 +1,7 @@
 import { SatsConnect, SatsConnectCallEvent } from "./SatsConnect";
 
 export abstract class SatsConnectParticipant {
-  private myConnectedId: string;
+  #myConnectedId: string;
 
   constructor(private readonly satsConnect: SatsConnect) {}
 
@@ -9,8 +9,12 @@ export abstract class SatsConnectParticipant {
     satsConnect: SatsConnect, participant: Participant,
   ): Participant {
     const id = satsConnect.connect(participant.listen.bind(participant));
-    participant.myConnectedId = id;
+    participant.#myConnectedId = id;
     return participant;
+  }
+
+  get myConnectedId() {
+    return this.#myConnectedId;
   }
 
   abstract handleRequest(method: string, params: any[]): Promise<any>;
