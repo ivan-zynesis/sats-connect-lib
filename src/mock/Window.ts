@@ -1,11 +1,14 @@
-export type EventName = 'network-change';
+export type EventName =
+  | 'network-change'
+  | 'sats-connect-rpc-call'
+  | 'sats-connect-rpc-respond';
 
 export interface Event {
   name: EventName;
   detail: Record<string, any>;
 }
 
-type EventListener = (event: Event) => Promise<void>;
+export type EventListener = (event: Event) => Promise<void>;
 
 export interface Window {
   addEventListener(eventName: EventName, listener: EventListener): string;

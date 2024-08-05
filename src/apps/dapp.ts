@@ -1,4 +1,4 @@
-import { MockWindow, Event, Window } from "../mock/Window";
+import { Event, Window } from "../mock/Window";
 
 export function InitMockDapp(window: Window) {
   const callback = () => {
@@ -13,4 +13,8 @@ export function InitMockDapp(window: Window) {
   window.addEventListener('network-change', async (event: Event): Promise<void> => {
     console.log('Event receveied', event);
   })
+}
+
+export function StartMockDapp(window: Window) {
+
 }
