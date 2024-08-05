@@ -29,7 +29,7 @@ export abstract class SatsConnectWallet extends SatsConnectParticipant implement
     ) throw new Error('Invalid PSBT params');
     return {
       payload: psbtExpected.payload,
-      signerAddresses: psbtExpected.signerAddresses[0],
+      signerAddresses: psbtExpected.signerAddresses,
       signatures: [/* FIXME */],
       signed: false,
     }
