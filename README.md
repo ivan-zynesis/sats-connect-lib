@@ -5,8 +5,11 @@
 
 ### Interpreted Requirement / Criteria
 It is to build a `walletconnect` or `sats-connect` like communication
-tool and the essentially provides one participant SDK consumer to send request in synchronous or asynchronous manner
-to another participant in the established `connection` (or possible a network).
+tool and the essentially allows one SDK consumer to send request in synchronous or asynchronous manner.
+The request is considered broadcasted into the `connection` (or possible a network).
+All other participant can possible handle (listen to) the request and broadcast the result back to `connection`.
+
+Handshake protocol and security is not taken care in this implementation.
 
 As EIP1193 is mentioned in the original doc, the communication is expected to be done similar to JSON RPC call.
 The communication medium should be abstracted, it does not really matter
