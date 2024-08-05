@@ -43,4 +43,33 @@ It starts by starting two mock dapps (a wallet, and another wallet consumer).
 Each dapp complete their initialization as wallet and wallet consumer correspondingly.
 
 After the initial setup, the wallet consumer is requesting to the wallet to sign a PSBT (mocked)
-on an one second interval. 
+on one second interval.
+
+## Structure and Some Thought Process
+The main implementation of this project includes
+- `SatsConnect` as very fundamental implementation
+- `SatsConnectWallet` and `SatsConnectClient` are demonstrating on how to build on top of provided `SatsConnect`
+
+`SatsConnect` is designed to be a bridge between the provider and client, communication could be bi-directional.
+
+```typescript
+interface Foo {
+  bar(): Promise<Bar>;
+}
+
+class SatsConnectWallet extends SatsConnectParticipant implements Foo {
+  // handleRequest should call bar()
+  async bar() {
+    return new Bar();
+  }
+}
+
+class SatsConnectClient extends SatsConnectParticipant implements Foo {
+  async bar() {
+    return this.sendRequest('bar');
+  }
+}
+```
+The implementation now is using the mocked `PubSub` where no serialization and deserialization are needed.
+The interface shall be refined with data type constraints to ensure only simple data object and always serializable are passed as RPC params. 
+ 

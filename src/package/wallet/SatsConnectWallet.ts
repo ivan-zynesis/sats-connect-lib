@@ -2,6 +2,10 @@ import { Psbt, Wallet as WalletI } from "./Abstract";
 import { SatsConnectParticipant } from "../sats-connect/SatsConnectParticipant";
 
 export abstract class SatsConnectWallet extends SatsConnectParticipant implements WalletI {
+  /**
+   * Map received RPC call to actual implementation.
+   * The exact function must have exists as long as the Wallet and the Client are implementing same set of interfaces
+   */
   async handleRequest(method: string, params: any[]): Promise<any> {
     switch (method) {
       case 'HAND_SHAKE': return true;
