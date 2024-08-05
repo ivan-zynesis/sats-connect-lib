@@ -55,5 +55,4 @@ export class MockWindow implements Window {
 
     return false;
   }
-
 }

@@ -14,15 +14,15 @@ class MockParticipant extends SatsConnectParticipant {
 describe('SatsConnect', () => {
   let satsConnect: SatsConnect;
 
-
   // Given 2 participants connected
   beforeAll(() => {
     satsConnect = new SatsConnect(window);
-    SatsConnectParticipant.connect(satsConnect, MockParticipant);
+    const client = new MockParticipant(satsConnect);
+    SatsConnectParticipant.connect(satsConnect, client);
   });
 
   it('should return', async () => {
-    const result = await satsConnect.call('HELLO', ['p1', 'p2']);
+    const result = await satsConnect.call('third party', 'HELLO', ['p1', 'p2']);
     expect(result).toStrictEqual('Successfully executed method: HELLO, params: [p1,p2]')
   });
 });

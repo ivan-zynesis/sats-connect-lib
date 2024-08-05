@@ -5,6 +5,7 @@ export interface SatsConnectCallEvent extends Event {
   name: 'sats-connect-rpc-call';
   // simplified way to identify response related to this call
   detail: {
+    callerParticipantId: string;
     satsConnectCallId: string;
     method: string;
     params: any[];
@@ -39,19 +40,20 @@ export class SatsConnect {
     window.addEventListener('sats-connect-rpc-respond', this.responseHandling.bind(this));
   }
 
-  connect(participant: RequestListener): void {
+  connect(participant: RequestListener): string {
     // FIXME: participant prevent dupe
     const id = randomUUID();
     this.participants[id] = participant;
-
+    return id;
     // TODO: handle disconnect
   }
 
-  async call(method: string, params: any[]): Promise<any> {
+  async call(callerParticipantId: string, method: string, params: any[]): Promise<any> {
     const callId = randomUUID();
 
     const callEvent: SatsConnectCallEvent['detail'] = {
       satsConnectCallId: callId,
+      callerParticipantId,
       method,
       params,
     };
@@ -94,7 +96,12 @@ export class SatsConnect {
     }
 
     const response = event as SatsConnectCallEvent;
-    await Promise.all(Object.values(this.participants).map(server => server(response)));
+
+    await Promise.all(
+      Object.entries(this.participants)
+        .filter(([k]) => k !== response.detail.callerParticipantId)
+        .map(([, listener]) => listener(response))
+    );
   }
 
   private async responseHandling(event: Event): Promise<void> {

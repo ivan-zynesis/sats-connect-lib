@@ -2,6 +2,7 @@ import { Window } from "../mock/Window";
 import { SatsConnectWallet } from "../package/wallet/SatsConnectWallet";
 import { SatsConnect } from "../package/sats-connect/SatsConnect";
 import { Psbt, Wallet } from "../package/wallet/Abstract";
+import { SatsConnectParticipant } from "../package/sats-connect/SatsConnectParticipant";
 
 class SomeonesWalletImplementation extends SatsConnectWallet {
   constructor(satsConnect: SatsConnect, private readonly network: string, private readonly pk: string) {
@@ -23,7 +24,9 @@ export function InitMockBitcoinWallet(window: Window) {
   const callback = () => {
     const name = Math.random() < 0.5 ? "mainnet" : "testnet";
     void window.dispatchEvent('network-change', {detail: {name}});
-    setTimeout(callback, Math.random() * 10_000);
+
+    // FIXME: until disconnect implemented
+    // setTimeout(callback, Math.random() * 10_000);
   }
 
   setTimeout(() => {
@@ -32,9 +35,12 @@ export function InitMockBitcoinWallet(window: Window) {
 
   const satsConnect = new SatsConnect(window);
 
-  let wallet: Wallet;
   window.addEventListener('network-change', async (event) => {
-    wallet = new SomeonesWalletImplementation(satsConnect, event.detail.name, mockGetPkFromPersistentStorage());
+    // FIXME: disconnect + reconnect
+
+    console.log('wallet received event')
+    const wallet = new SomeonesWalletImplementation(satsConnect, event.detail.name, mockGetPkFromPersistentStorage());
+    SatsConnectParticipant.connect(satsConnect, wallet);
   });
 }
 
